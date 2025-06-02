@@ -12,11 +12,18 @@ import '@xyflow/react/dist/style.css';
 export default function Home() {
   const [userInput, setUserInput] = useState("");
   const [dataReceived, setDataReceived] = useState<[string, number][]>([]);
-  const [showRawTokens, setShowRawTokens] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+
+
 
   const callAPI = async (prompt: string) => {
+    setIsLoading(true);
+    
     console.log("sending the value --> " + prompt)
-    const val = await fetch("api/complete", {
+    const val = 
+    
+    
+    await fetch("api/complete", {
       method: "POST", 
       headers: {
         "Content-Type" : "application/json" 
@@ -45,6 +52,7 @@ if (!first || Object.keys(first).length === 0) {
     }));
     
     setDataReceived(converted);
+    setIsLoading(false);
     
 
   }
@@ -84,7 +92,8 @@ if (!first || Object.keys(first).length === 0) {
   return (
     
     
-    <div>
+    <div className="flex justify-center pt-[20vh] h-screen">
+      <div className="flex flex-col items-center space-y-6">
       <UserInput 
       userInput={userInput}
       setUserInput={setUserInput}
@@ -92,18 +101,25 @@ if (!first || Object.keys(first).length === 0) {
     />
 
  
+   
 
-
-
-
-<ul onClick={handleTokenClick}>
+{isLoading ? <p className="text-gray-500 mt-4">Loading...</p> : <ul onClick={handleTokenClick}>
   {dataReceived.map(({ token, probability }, index) => (
     <li key={index} data-token={token}>
-      The token <strong>{displayToken(token)}</strong> has a <></>{probability.toFixed(2)}% of showing up
-    </li>
+    The token{" "}
+    <strong className="border border-red-500 rounded px-1">
+      {displayToken(token)}
+    </strong>{" "}
+    has a {probability.toFixed(2)}% chance of showing up
+  </li>
+  
   ))}
-</ul>
+</ul>}
 
+
+
+
+</div>
 
 
      
