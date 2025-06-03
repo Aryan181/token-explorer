@@ -79,7 +79,8 @@ if (!first || Object.keys(first).length === 0) {
     if (token === "\t") return "[\\t]";
     if (token === "\r") return "[\\r]";
     if (token === " ") return "[space]";
-    if (/^\s+$/.test(token)) return `[${JSON.stringify(token)}]`; // catches other whitespace
+    if (/^\s+$/.test(token)) return "[" + JSON.stringify(token) + "]";
+
   
     return token;
   };
@@ -94,6 +95,7 @@ if (!first || Object.keys(first).length === 0) {
 
       <h1 className="text-4xl font-bold">What's the next token?</h1>
       <h4>ChatGPT gives you one answer, but under the hood, it has many options to choose from</h4>
+
 
       
       <UserInput 
