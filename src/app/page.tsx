@@ -92,8 +92,10 @@ if (!first || Object.keys(first).length === 0) {
     <div className="flex justify-center pt-[20vh] h-screen">
       <div className="flex flex-col items-center space-y-6">
 
-      <h1 className="text-4xl font-bold">Token Explorer</h1>
-      <h4>Chatgpt gives you 1 answer, but under the hood - it has so many options to choose from</h4>
+      <h1 className="text-4xl font-bold">What's the next token?</h1>
+      <h4>ChatGPT gives you one answer, but under the hood, it has many options to choose from</h4>
+
+      
       <UserInput 
       userInput={userInput}
       setUserInput={setUserInput}
@@ -103,23 +105,32 @@ if (!first || Object.keys(first).length === 0) {
  
    
 
-{isLoading ? <p className="text-gray-500 mt-4">Loading...</p> : <ul onClick={handleTokenClick}>
-  {dataReceived.map(({ token, probability }, index) => (
-    <li key={index} data-token={token} className="mb-2">
-    The token{" "}
-    <strong className="border border-red-500 rounded px-1">
-      {displayToken(token)}
-    </strong>{" "}
-    has a {probability.toFixed(2)}% chance of showing up after the word <strong className="border border-red-500 rounded px-1">
-      {userInput}
-    </strong>{" "}  in the sentence you just typed
-  </li>
-  
-  ))}
-</ul>}
+{isLoading ? (
+  <p className="text-gray-500 mt-4">Loading...</p>
+) : dataReceived.length > 0 ? (
+  <div>
+    <h2 className="text-sm text-gray-700 mb-2">Click on the token you want to see appended to the sentance</h2>
+    <ul onClick={handleTokenClick}>
+      {dataReceived.map(({ token, probability }, index) => (
+        <li key={index} data-token={token} className="mb-2">
+          The token{" "}
+          <strong className="border border-red-500 rounded px-1">
+            {displayToken(token)}
+          </strong>{" "}
+          has a {probability.toFixed(2)}% chance of showing up after the word{" "}
+          <strong className="border border-red-500 rounded px-1">
+            {userInput}
+          </strong>
+        </li>
+      ))}
+    </ul>
+  </div>
+) : null}
 
 
-
+<a href="https://docs.google.com/document/d/e/2PACX-1vQ-o78wvzHF4lQguaCqI--sg2Pe3uSGJVQSCa-2KVlS5uhRqTVFNOjLr92pS-kXZzFKKfLH0Ktt860L/pub">
+<h4 className="text-blue-600 underline cursor-pointer">project details</h4>
+</a>
 
 </div>
 
