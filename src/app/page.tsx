@@ -2,16 +2,13 @@
 
 import UserInput from "./UserInput";
 import { useState } from "react";
-
-import { ReactFlow } from '@xyflow/react';
- 
 import '@xyflow/react/dist/style.css';
 
 
 
 export default function Home() {
   const [userInput, setUserInput] = useState("");
-  const [dataReceived, setDataReceived] = useState<[string, number][]>([]);
+  const [dataReceived, setDataReceived] = useState<Array<{ token: string; probability: number }>>([]);
   const [isLoading, setIsLoading] = useState(false);
 
 
@@ -41,14 +38,14 @@ export default function Home() {
     const first = data?.logprobs?.top_logprobs?.[0];
 if (!first || Object.keys(first).length === 0) {
   console.warn("Model returned no tokens – likely thought the prompt was complete.");
-  return;               // ← early-out so UI doesn’t crash
+  return;               // ← early-out so UI doesn't crash
 }
 
     const topLogprobsArray = Object.entries(topLogprobs); // [ [token, logprob], ... ] 
     console.log(topLogprobsArray);
     const converted = Object.entries(topLogprobs).map(([token, logprob]) => ({
       token,
-      probability: Math.exp(logprob) * 100,
+      probability: Math.exp(Number(logprob)) * 100,
     }));
     
     setDataReceived(converted);
@@ -115,7 +112,7 @@ if (!first || Object.keys(first).length === 0) {
     </strong>{" "}
     has a {probability.toFixed(2)}% chance of showing up after the word <strong className="border border-red-500 rounded px-1">
       {userInput}
-    </strong>{" "}  in the sentance you just typed
+    </strong>{" "}  in the sentence you just typed
   </li>
   
   ))}
