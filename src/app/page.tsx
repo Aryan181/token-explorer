@@ -93,7 +93,7 @@ if (!first || Object.keys(first).length === 0) {
     <div className="flex justify-center pt-[20vh] h-screen">
       <div className="flex flex-col items-center space-y-6">
 
-      <h1 className="text-4xl font-bold">What's the next token?</h1>
+      <h1 className="text-4xl font-bold">What&apos;s the next token?</h1>
       <h4>ChatGPT gives you one answer, but under the hood, it has many options to choose from</h4>
 
 
